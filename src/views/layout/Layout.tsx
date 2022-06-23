@@ -19,7 +19,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Icon } from '@mui/material';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import { fakeAuthProvider } from 'src/services/auth.service';
+import { auththentication, fakeAuthProvider } from 'src/services/auth.service';
 
 function Copyright(props: any) {
     return (
@@ -93,10 +93,8 @@ function LayoutContent() {
         setOpen(!open);
     };
     const logout = () => {
-        fakeAuthProvider.signout(() => {
-            navigate('/login', { replace: true });
-        })
-
+        auththentication.signout();
+        navigate('/login', { replace: true });
     }
     return (
         <ThemeProvider theme={mdTheme}>

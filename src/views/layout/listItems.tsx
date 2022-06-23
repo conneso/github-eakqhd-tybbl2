@@ -25,7 +25,7 @@ export const mainListItems = (
         <ShoppingCartIcon />
       </ListItemIcon>
       {/* <ListItemText primary="Orders" /> */}
-      <Link to="orders" >Orders</Link>
+      <Link to="artists" >Artists</Link>
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>

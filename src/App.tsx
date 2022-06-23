@@ -7,6 +7,7 @@ import { fakeAuthProvider } from './services/auth.service';
 import { AuthProvider } from './views/auth/AuthProvider';
 import Checkout from './views/checkout/Checkout';
 import Review from './views/checkout/Review';
+import Artists from './views/dashboard/Artists';
 import Dashboard from './views/dashboard/Dashboard';
 import Orders from './views/dashboard/Orders';
 import Layout from './views/layout/Layout';
@@ -32,9 +33,9 @@ export default function App() {
               <Dashboard />
             </RequireAuth>}
           />
-          <Route path="/orders" element={
+          <Route path="/artists" element={
             <RequireAuth>
-              <Orders />
+              <Artists />
             </RequireAuth>}
           />
           <Route path="/checkout" element={

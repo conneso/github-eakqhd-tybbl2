@@ -1,5 +1,4 @@
-import React from "react";
-import AuthContext from "src/views/auth/AuthenContext";
+import axios from "axios";
 
 /**
  * This represents some generic auth provider API, like Firebase.
@@ -17,9 +16,22 @@ const fakeAuthProvider = {
   },
 };
 
+const auththentication = {
+  async singin(u: String, p: String): Promise<any> {
+    var result = await axios({
+      method: 'POST',
+      url: `http://localhost:3001/api/users/signin`,
+      data: { username: u, password: p }
+    })
+    return result;
+  },
+  signout(): void {
+    sessionStorage.removeItem('token')
+  }
+}
 function useAuth() {
-  return { user: sessionStorage.getItem('user'), token:  sessionStorage.getItem('token')}
+  return { user: sessionStorage.getItem('user'), token: sessionStorage.getItem('token') }
   // return React.useContext(AuthContext);
 }
 
-export { fakeAuthProvider, useAuth };
+export { fakeAuthProvider, auththentication, useAuth };

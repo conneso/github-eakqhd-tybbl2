@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { auththentication } from 'src/services/auth.service';
 
 function Copyright(props: any) {
   return (
@@ -35,17 +36,19 @@ export default function SignIn() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    sessionStorage.setItem('user', JSON.stringify({
-      email: data.get('email'),
-      password: data.get('password'),
-    }))
     //Gọi tới api authentication để lấy token
-    sessionStorage.setItem('token', '');
-    navigate('/dashboard', { replace: true });
+    auththentication.singin(`${data.get('email')}`, `${data.get('password')}`).then(res => {
+      console.log(res)
+      if (res.data.existed === true) {
+        sessionStorage.setItem('token', res.data.token);
+        navigate('/dashboard', { replace: true });
+      }
+      else {
+        sessionStorage.removeItem('token');
+        alert("Thông tin đăng nhập không đúng")
+      }
+    })
+
   };
 
   return (
