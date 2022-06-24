@@ -8,21 +8,18 @@ export default class BaseService {
         this.endpoint = props.endpoint
     }
     GetAll = async (params: { skip: any; take: any; orderBy: any }) => {
-        let token = sessionStorage.getItem('token');
         var result = await axios({
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
             method: 'GET',
             url: `${this.api}/${this.endpoint}?skip=${params.skip}&limit=${params.take}&orderBy=${params.orderBy}`,
             data: null
         })
         return result;
     }
-    Count = async () => {
+
+    FindById = async (id: string | undefined) => {
         var result = await axios({
             method: 'GET',
-            url: `${this.api}/${this.endpoint}/count`,
+            url: `${this.api}/${this.endpoint}/getById?id=${id}`,
             data: null
         })
         return result;

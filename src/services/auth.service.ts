@@ -23,6 +23,17 @@ const auththentication = {
       url: `http://localhost:3001/api/users/signin`,
       data: { username: u, password: p }
     })
+    if (result.data.existed === true) {
+      // delete axios.defaults.headers.common['Authorization']
+      // axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
+      // //Setup header for interceptor
+      axios.interceptors.request.use((config: any) => {
+        config.headers.Authorization = `Bearer ${result.data.token}`
+        return config
+      }, error => {
+        return Promise.reject(error);
+      });
+    }
     return result;
   },
   signout(): void {

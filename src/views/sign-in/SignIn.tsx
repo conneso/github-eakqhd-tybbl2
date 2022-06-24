@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { auththentication } from 'src/services/auth.service';
+import axios from 'axios';
 
 function Copyright(props: any) {
   return (
@@ -41,6 +42,16 @@ export default function SignIn() {
       console.log(res)
       if (res.data.existed === true) {
         sessionStorage.setItem('token', res.data.token);
+        // delete axios.defaults.headers.common['Authorization']
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
+        // //Setup header for interceptor
+        // axios.interceptors.request.use((config: any) => {
+        //   config.headers.Authorization = `Bearer ${res.data.token}`
+        //   return config
+        // }, error => {
+        //   return Promise.reject(error);
+        // });
+
         navigate('/dashboard', { replace: true });
       }
       else {
